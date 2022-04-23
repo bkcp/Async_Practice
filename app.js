@@ -1,4 +1,4 @@
-//Async
+//Async and Callback
 
 console.log("sending request to server");
 setTimeout(() => {
@@ -35,20 +35,56 @@ delayColorChange("red", 2000, () => {
 });
 
 //EXAMPLE OF NESTING CALLBACKS TO CHECK FOR SUCESS OR FAILURE
-searchMoviesAPI(
-  "amadeus",
-  () => {
-    saveToMyDB(
-      movies,
-      () => {
-        //if it works, run this
-      },
-      () => {
-        //if it doesn't work, run this
+// searchMoviesAPI(
+//   "amadeus",
+//   () => {
+//     saveToMyDB(
+//       movies,
+//       () => {
+//         //if it works, run this
+//       },
+//       () => {
+//         //if it doesn't work, run this
+//       }
+//     );
+//   },
+//   () => {
+//     //if API is down, or request failed
+//   }
+// );
+
+//Promises
+
+const fakeRequestCallback = (url, success, failure) => {
+  const delay = Math.floor(Math.random() * 4500) + 500;
+  setTimeout(() => {
+    if (delay > 4000) {
+      failure("Connection Timeout :(");
+    } else {
+      success(`Here is your fake data from ${url}`);
+    }
+  }, delay);
+};
+
+const fakeRequestPromise = (url) => {
+  return new Promise((resolve, reject) => {
+    const delay = Math.floor(Math.random() * 4500) + 500;
+    setTimeout(() => {
+      if (delay > 4000) {
+        reject("Connection Timeout :(");
+      } else {
+        resolve(`Here is your Fake date from ${url}`);
       }
-    );
+    });
+  });
+};
+
+fakeRequestCallback(
+  "books.com",
+  function () {
+    console.log("it worked");
   },
-  () => {
-    //if API is down, or request failed
+  function () {
+    console.log("Error");
   }
 );
