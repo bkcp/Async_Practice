@@ -75,16 +75,18 @@ const fakeRequestPromise = (url) => {
       } else {
         resolve(`Here is your Fake date from ${url}`);
       }
-    });
+    }, delay);
   });
 };
 
+
 fakeRequestCallback(
   "books.com",
-  function () {
+  function (response) {
     console.log("it worked");
+    console.log(response)
   },
-  function () {
-    console.log("Error");
+  function (err) {
+    console.log("Error", err);
   }
 );
