@@ -85,6 +85,16 @@ fakeRequestCallback(
   function (response) {
     console.log("it worked");
     console.log(response)
+    
+    fakeRequestCallback('books.com/page2',
+    function(response){
+      console.log('it worked again');
+      console.log(response);
+    },
+    function(err){
+      console.log('Error again', err);
+    }
+    )  
   },
   function (err) {
     console.log("Error", err);
