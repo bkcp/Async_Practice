@@ -236,3 +236,23 @@ login('asdf','corgifeet')
   console.log('error')
   console.log(err)
 })
+
+
+
+async function rainbow(){
+  await delayColorChange('red',1000);
+  await console.log('back to red');
+  await delayColorChange('pink',1000);
+  await console.log('now its pink');
+  return "finished"
+}
+
+async function printRainbow(){
+await rainbow();
+console.log("end of async rainbow function")
+}
+
+async function fakeAwaitRequest(){
+  let data1 = await fakeRequest('beta.com');
+  console.log(data1);
+}
