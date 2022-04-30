@@ -21,18 +21,7 @@
 // }, 1000);
 
 //do it in a function
-const delayColorChange = (newColor, delay, doNext) => {
-  setTimeout(() => {
-    document.body.style.backgroundColor = newColor;
-    doNext && doNext();
-  }, delay);
-};
 
-delayColorChange("red", 2000, () => {
-  delayColorChange("orange", 2000, () => {
-    delayColorChange("yellow", 2000);
-  });
-});
 
 //EXAMPLE OF NESTING CALLBACKS TO CHECK FOR SUCESS OR FAILURE
 // searchMoviesAPI(
@@ -149,4 +138,60 @@ fakeRequestPromise('yelp.com/api/coffee')
 .catch((err)=>{
   console.log("Promise failed");
   console.log(err);
+})
+
+
+const fakeRequest = (url) =>{
+  return new Promise((resolve, reject)=>{
+    const rand = Math.random();
+    setTimeout(()=>{
+      if(rand < 0.6){
+        resolve('Fake Data Here');
+      }
+      reject('Request Error');
+    }, 1000)
+  })
+}
+
+fakeRequest('/dog/1')
+.then((data)=>{
+console.log("done with request");
+console.log(data);
+})
+.catch((err)=>{
+  console.log('Rejected promise')
+  console.log(err)
+})
+
+// const delayColorChange = (newColor, delay, doNext) => {
+//   setTimeout(() => {
+//     document.body.style.backgroundColor = newColor;
+//     doNext && doNext();
+//   }, delay);
+// };
+
+// delayColorChange("red", 2000, () => {
+//   delayColorChange("orange", 2000, () => {
+//     delayColorChange("yellow", 2000);
+//   });
+// });
+
+const delayColorChange = (newColor, delay)=>{
+  return new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+      document.body.style.backgroundColor = newColor;
+      resolve();
+    }, delay);
+  })
+}
+
+delayColorChange('red', 1000)
+.then(()=>{
+  return delayColorChange('green',1000)
+})
+.then(()=>{
+  return delayColorChange('yellow',1000)
+})
+.then(()=>{
+  delayColorChange('violet',1000)
 })
