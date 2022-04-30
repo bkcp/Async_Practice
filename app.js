@@ -195,3 +195,44 @@ delayColorChange('red', 1000)
 .then(()=>{
   delayColorChange('violet',1000)
 })
+
+
+
+//ASYNC KEYWORD
+
+async function hello(){
+
+}
+
+const sing = async()=>{
+  throw "uh oh"
+  return 'lalalalal'
+}
+sing()
+.then((data)=>{
+console.log("Async Promise resolved with:", data)
+})
+.catch((err)=>{
+  console.log("Async Promise Rejected with:", err)
+})
+
+
+const login = async(username,password)=>{
+if(!username || !password){
+  throw "missing credentials"
+}
+if(password === 'corgifeet'){
+  return 'Open Sesame'
+}
+throw('invalid password')
+}
+
+login('asdf','corgifeet')
+.then((msg)=>{
+  console.log('logged in')
+  console.log(msg)
+})
+.catch((err)=>{
+  console.log('error')
+  console.log(err)
+})
