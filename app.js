@@ -1,10 +1,10 @@
 //Async and Callback
 
-console.log("sending request to server");
-setTimeout(() => {
-  console.log("data returned");
-}, 3000);
-console.log("end of file reached");
+// console.log("sending request to server");
+// setTimeout(() => {
+//   console.log("data returned");
+// }, 3000);
+// console.log("end of file reached");
 
 //Nested Callback Timeouts
 // setTimeout(() => {
@@ -100,3 +100,29 @@ fakeRequestCallback(
     console.log("Error", err);
   }
 );
+
+fakeRequestPromise('yelp.com/api/coffee')
+.then(()=>{
+  console.log('Promise Resolved');
+  console.log('it worked!');
+  fakeRequestPromise('yelp.com/api/coffee/page2')
+  .then(()=>{
+    console.log('Second Promise Resolved');
+    console.log('second promise worked too!');
+    fakeRequestPromise('yelp.com/api/coffee/page3')
+    .then(()=>{
+      console.log('third promise worked');
+    })
+    .catch(()=>{
+      console.log('third promise failed')
+    })
+  })
+  .catch(()=>{
+    console.log('Second Promis Rejected');
+    console.log('second promise failed');
+  })
+})
+.catch(()=>{
+  console.log('Promise Rejected');
+  console.log('oh no!');
+})
