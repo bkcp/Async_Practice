@@ -120,25 +120,25 @@ const fakeRequestPromise = (url) => {
 // })
 
 
-fakeRequestPromise('yelp.com/api/coffee')
-.then((data)=>{
-  console.log('First Promise Returned')
-  console.log(data);
-  return fakeRequestPromise('yelp.com/api/coffee/pg2')
-})
-.then((data)=>{
-  console.log('Second Promise Returned')
-  console.log(data);
-  return fakeRequestPromise('yelp.com/api/coffe/pg3')
-})
-.then((data)=>{
-  console.log('Third Promise Returned')
-  console.log(data);
-})
-.catch((err)=>{
-  console.log("Promise failed");
-  console.log(err);
-})
+// fakeRequestPromise('yelp.com/api/coffee')
+// .then((data)=>{
+//   console.log('First Promise Returned')
+//   console.log(data);
+//   return fakeRequestPromise('yelp.com/api/coffee/pg2')
+// })
+// .then((data)=>{
+//   console.log('Second Promise Returned')
+//   console.log(data);
+//   return fakeRequestPromise('yelp.com/api/coffe/pg3')
+// })
+// .then((data)=>{
+//   console.log('Third Promise Returned')
+//   console.log(data);
+// })
+// .catch((err)=>{
+//   console.log("Promise failed");
+//   console.log(err);
+// })
 
 
 const fakeRequest = (url) =>{
@@ -253,6 +253,13 @@ console.log("end of async rainbow function")
 }
 
 async function fakeAwaitRequest(){
-  let data1 = await fakeRequest('beta.com');
-  console.log(data1);
+  try{
+    let data1 = await fakeRequest('pg1');
+    console.log(data1);
+    let data2 = await fakeRequest('pg2');
+    console.log(data2);
+ 
+  }catch(e){
+    console.log('caught an error:', e)
+  }
 }
