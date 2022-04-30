@@ -55,16 +55,40 @@ delayColorChange("red", 2000, () => {
 
 //Promises
 
-const fakeRequestCallback = (url, success, failure) => {
-  const delay = Math.floor(Math.random() * 4500) + 500;
-  setTimeout(() => {
-    if (delay > 4000) {
-      failure("Connection Timeout :(");
-    } else {
-      success(`Here is your fake data from ${url}`);
-    }
-  }, delay);
-};
+// const fakeRequestCallback = (url, success, failure) => {
+//   const delay = Math.floor(Math.random() * 4500) + 500;
+//   setTimeout(() => {
+//     if (delay > 4000) {
+//       failure("Connection Timeout :(");
+//     } else {
+//       success(`Here is your fake data from ${url}`);
+//     }
+//   }, delay);
+// };
+
+
+
+
+// fakeRequestCallback(
+//   "books.com",
+//   function (response) {
+//     console.log("it worked");
+//     console.log(response)
+    
+//     fakeRequestCallback('books.com/page2',
+//     function(response){
+//       console.log('it worked again');
+//       console.log(response);
+//     },
+//     function(err){
+//       console.log('Error again', err);
+//     }
+//     )  
+//   },
+//   function (err) {
+//     console.log("Error", err);
+//   }
+// );
 
 const fakeRequestPromise = (url) => {
   return new Promise((resolve, reject) => {
@@ -73,56 +97,56 @@ const fakeRequestPromise = (url) => {
       if (delay > 4000) {
         reject("Connection Timeout :(");
       } else {
-        resolve(`Here is your Fake date from ${url}`);
+        resolve(`Here is your Fake data from ${url}`);
       }
     }, delay);
   });
 };
 
 
-fakeRequestCallback(
-  "books.com",
-  function (response) {
-    console.log("it worked");
-    console.log(response)
-    
-    fakeRequestCallback('books.com/page2',
-    function(response){
-      console.log('it worked again');
-      console.log(response);
-    },
-    function(err){
-      console.log('Error again', err);
-    }
-    )  
-  },
-  function (err) {
-    console.log("Error", err);
-  }
-);
+// fakeRequestPromise('yelp.com/api/coffee')
+// .then(()=>{
+//   console.log('Promise Resolved');
+//   console.log('it worked!');
+//   fakeRequestPromise('yelp.com/api/coffee/page2')
+//   .then(()=>{
+//     console.log('Second Promise Resolved');
+//     console.log('second promise worked too!');
+//     fakeRequestPromise('yelp.com/api/coffee/page3')
+//     .then(()=>{
+//       console.log('third promise worked');
+//     })
+//     .catch(()=>{
+//       console.log('third promise failed')
+//     })
+//   })
+//   .catch(()=>{
+//     console.log('Second Promis Rejected');
+//     console.log('second promise failed');
+//   })
+// })
+// .catch(()=>{
+//   console.log('Promise Rejected');
+//   console.log('oh no!');
+// })
+
 
 fakeRequestPromise('yelp.com/api/coffee')
-.then(()=>{
-  console.log('Promise Resolved');
-  console.log('it worked!');
-  fakeRequestPromise('yelp.com/api/coffee/page2')
-  .then(()=>{
-    console.log('Second Promise Resolved');
-    console.log('second promise worked too!');
-    fakeRequestPromise('yelp.com/api/coffee/page3')
-    .then(()=>{
-      console.log('third promise worked');
-    })
-    .catch(()=>{
-      console.log('third promise failed')
-    })
-  })
-  .catch(()=>{
-    console.log('Second Promis Rejected');
-    console.log('second promise failed');
-  })
+.then((data)=>{
+  console.log('First Promise Returned')
+  console.log(data);
+  return fakeRequestPromise('yelp.com/api/coffee/pg2')
 })
-.catch(()=>{
-  console.log('Promise Rejected');
-  console.log('oh no!');
+.then((data)=>{
+  console.log('Second Promise Returned')
+  console.log(data);
+  return fakeRequestPromise('yelp.com/api/coffe/pg3')
+})
+.then((data)=>{
+  console.log('Third Promise Returned')
+  console.log(data);
+})
+.catch((err)=>{
+  console.log("Promise failed");
+  console.log(err);
 })
